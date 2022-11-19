@@ -1,28 +1,26 @@
-from decimal import Decimal
+from ailab.ext.restapi.api import *
+
+class TestPOSTRoutes:
+    def test_post_generate_image_post(client):
+        myData = {'somekey': 'somevalue'}
+        with app.test_client() as c:
+            response = c.post("/api/v1/post/generate/image", json=myData)
+            assert response.status_code == 200
+
+    def test_post_generate_image_post(client):
+        with app.test_client() as c:
+            response = c.get("/api/v1/post/generate/image")
+            assert response.status_code == 405 
 
 
-def test_products_get_all(client, products):  # Arrange
-    """Test get all products"""
-    # Act
-    response = client.get("/api/v1/product/")
-    # Assert
-    assert response.status_code == 200
-    data = response.json["products"]
-    assert len(data) == 3
-    for product in products:
-        assert product.id in [item["id"] for item in data]
-        assert product.name in [item["name"] for item in data]
-        assert product.price in [Decimal(item["price"]) for item in data]
+class TestGETRoutes:
+    def test_post_index_get(client):
+        with app.test_client() as c:
+            response = c.get("/api/v1/post")
+            assert response.status_code == 200
 
+    def test_validate_user_edit_get(client):
+        with app.test_client() as c:
+            response = c.get('/')
+            assert response.status_code == 200
 
-def test_products_get_one(client, products):  # Arrange
-    """Test get one product"""
-    for product in products:
-        # Act
-        response = client.get(f"/api/v1/product/{product.id}")
-        data = response.json
-        # Assert
-        assert response.status_code == 200
-        assert data["name"] == product.name
-        assert Decimal(data["price"]) == product.price
-        assert data["description"] == product.description
