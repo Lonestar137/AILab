@@ -1,14 +1,10 @@
-from flask import abort, jsonify
+from flask import jsonify
 from flask_restful import Resource
 from flask_simplelogin import login_required
 
-
-
 class ProductResource(Resource):
     def get(self):
-        return jsonify(
-            {"products": ""}
-        )
+        return jsonify({"products": ""})
 
     @login_required(basic=True, username="admin")
     def post(self):
@@ -25,7 +21,6 @@ class ProductResource(Resource):
         return NotImplementedError(
             "Someone please complete this example and send a PR :)"
         )
-
 
 class ProductItemResource(Resource):
     def get(self, product_id):
