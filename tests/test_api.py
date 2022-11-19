@@ -1,8 +1,4 @@
-from decimal import Decimal
 from ailab.ext.restapi.api import *
-from flask import Flask
-
-import requests
 
 class TestPOSTRoutes:
     def test_post_generate_image_post(client):
